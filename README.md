@@ -29,7 +29,8 @@ Die Applikation:
 * liegt in Git unter folgender Adresse:  
 https://github.com/nikolaus-lemberski/openshift-modul3
 * dort im Unterordner (context directory) _hello-world_
-* nutzt Java in der Version 11
+* nutzt nodejs in der Version 16, z.B. mit baseimage 16-ubi8 oder 16-ubi8-minimal  
+Hinweis: es muss kein Dockerfile erstellt werden!
 * als build strategy soll _source_ verwendet werden
 
 Über `oc get all` kann alles, was der `oc new-app` command erstellt hat, angesehen werden. Es werden zwei pods gebaut, erst ein "build" pods der die Anwendung baut, danach der pod mit der Anwendung.
