@@ -23,7 +23,7 @@ Als erstes erstellen wir ein Projekt **hello** über die OpenShift CLI. Damit wi
 
 ### Applikation bauen und deployen
 
-In unserem neuen Projekt deployen wir eine fertige Quarkus Anwendung über OpenShift Source-to-Image (s2i). Über `oc new-app -h` kann die Hilfe aufgerufen werden, wie eine Applikation aus einem Git repository von OpenShift gebaut und deployed werden kann.
+In unserem neuen Projekt deployen wir eine fertige nodejs Anwendung über OpenShift Source-to-Image (s2i). Über `oc new-app -h` kann die Hilfe aufgerufen werden, wie eine Applikation aus einem Git repository von OpenShift gebaut und deployed werden kann.
 
 Die Applikation:
 * liegt in Git unter folgender Adresse:  
