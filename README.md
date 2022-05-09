@@ -19,11 +19,11 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 
 Alle Applikationen in OpenShift werden in Projekten organisiert. In einem Projekt können viele Applikationen enthalten sein, sie befinden sich im gleichen _namespace_ und können miteinander über Services kommunizieren.
 
-Wir erstellen ein Projekt **hello** über die OpenShift CLI. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **user123-hello**.
+Als erstes erstellen wir ein Projekt **hello** über die OpenShift CLI. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **user123-hello**.
 
 ### Applikation bauen und deployen
 
-Anschließend deployen wir eine fertige Anwendung über OpenShift Source-to-Image (s2i). Über `oc new-app --help` kann die Hilfe aufgerufen werden, wie eine Applikation aus einem Git repository von OpenShift gebaut und deployed werden kann.
+In unserem neuen Projekt deployen wir eine fertige Quarkus Anwendung über OpenShift Source-to-Image (s2i). Über `oc new-app -h` kann die Hilfe aufgerufen werden, wie eine Applikation aus einem Git repository von OpenShift gebaut und deployed werden kann.
 
 Die Applikation:
 * liegt in Git unter folgender Adresse:  

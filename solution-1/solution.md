@@ -2,7 +2,7 @@
 
 ```shell
 oc new-project <username>-hello  
-oc new-app --name hello java:11~https://github.com/nikolaus-lemberski/openshift-modul3 --context-dir hello-world--strategy source
+oc new-app --name hello java:11~https://github.com/nikolaus-lemberski/openshift-modul3 --context-dir hello-world -e JAVA_MAIN_CLASS=com.redhat.developer.demo.GreetingResource
 
 oc get all  
 oc get pods  
