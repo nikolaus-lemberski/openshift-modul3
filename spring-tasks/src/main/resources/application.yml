@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: tasks
+  datasource:
+    initialization-mode: always
+  data:
+    rest:
+      basePath: "/api"

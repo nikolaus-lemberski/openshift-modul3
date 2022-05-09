@@ -19,7 +19,7 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 
 Alle Applikationen in OpenShift werden in Projekten organisiert. In einem Projekt können viele Applikationen enthalten sein, sie befinden sich im gleichen _namespace_ und können miteinander über Services kommunizieren.
 
-Wir erstellen ein Projekt **tasks** über die OpenShift CLI. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **user123-tasks**.
+Wir erstellen ein Projekt **hello** über die OpenShift CLI. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **user123-hello**.
 
 ### Applikation bauen und deployen
 
@@ -27,7 +27,8 @@ Anschließend deployen wir eine fertige Anwendung über OpenShift Source-to-Imag
 
 Die Applikation:
 * liegt in Git unter folgender Adresse:  
-https://github.com/nikolaus-lemberski/spring-tasks
+https://github.com/nikolaus-lemberski/openshift-modul3
+* dort im Unterordner (context directory) _hello-world_
 * nutzt Java in der Version 11
 * als build strategy soll _source_ verwendet werden
 
@@ -37,10 +38,15 @@ https://github.com/nikolaus-lemberski/spring-tasks
 
 * Den Build Log verfolgen
 * Eine shell im container der app öffnen und mit curl den app root öffnen
+* Die Applikation in der Web Konsole, Developer Perspektive untersuchen
 
 ### Applikation öffentlich aufrufbar machen
 
 Zuletzt erstellen wir eine _route_ für die app, um diese öffentlich aufrufbar zu machen, und testen (z.B. mit curl), ob die Anwendung erreichbar ist.
+
+### Projekt löschen
+
+Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
 
 
 ## 2 - App Deployment mit Fehlersuche
