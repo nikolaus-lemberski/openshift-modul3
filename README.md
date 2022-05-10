@@ -15,7 +15,8 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 
 ## 1 - App Deployment
 
-> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-1/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+> **⚠ HINWEIS:**  
+> Bitte alle Aufgaben versuchen, selbst zu lösen und erst dann über die [Lösung](solution-1/solution.md) prüfen, ob alles richtig gemacht wurde.
 
 ### Projekt erstellen
 
