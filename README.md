@@ -29,7 +29,7 @@ Die Applikation:
 * liegt in Git unter folgender Adresse:  
 https://github.com/nikolaus-lemberski/openshift-modul3
 * dort im Unterordner (context directory) _hello-world_
-* nutzt nodejs in der Version 16, z.B. mit baseimage 16-ubi8 oder 16-ubi8-minimal  
+* nutzt nodejs in der Version 16 mit dem ubi8 baseimage, als ImageStream _nodejs:16-ubi8-minimal_ in OpenShift bereitgestellt
 Hinweis: es muss kein Dockerfile erstellt werden!
 * als build strategy soll _source_ verwendet werden
 
@@ -40,6 +40,19 @@ Hinweis: es muss kein Dockerfile erstellt werden!
 * Den Build Log verfolgen
 * Eine shell im container der app öffnen und mit curl den app root öffnen
 * Die Applikation in der Web Konsole, Developer Perspektive untersuchen
+
+### Health Checks
+
+Health Checks dienen in Kubernetes dazu, dass Kubernetes den Status einer Anwendung überprüfen kann und sollte der Health Check fehlschlagen, die Anwendung neu startet. Health Checks können bei der Erstellung einer Anwendung über das Deployment oder die DeploymentConfig konfiguriert werden. Bei einer bestehenden Anwendung wird der Health Check am einfachsten über die Web Konsole konfiguriert.
+
+Die Anwendung stellt zwei Health Checks bereit:
+
+* `/health/readiness`  
+Der readiness check, der - sobald erfolgreich - an OpenShift das Signal gibt, dass nun traffic an die Anwendung geroutet werden darf.
+* `/health/liveness`  
+Der liveness check, der von OpenShift kontinuierlich überprüft wird. Schlägt die liveness probe fehl, wird der pod mit der Anwendung automatisch gestoppt. Da dann weniger pods aktiv sind als im ReplicaSet vorgebeben, wird automatisch ein neuer pod mit der Anwendung erstellt.
+
+**Aufgabe:** Konfiguration von readiness und liveness Health Checks über die Web Konsole.
 
 ### Applikation öffentlich aufrufbar machen
 
