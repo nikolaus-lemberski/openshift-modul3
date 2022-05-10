@@ -15,6 +15,8 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 
 ## 1 - App Deployment
 
+> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-1/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+
 ### Projekt erstellen
 
 Alle Applikationen in OpenShift werden in Projekten organisiert. In einem Projekt können viele Applikationen enthalten sein, sie befinden sich im gleichen _namespace_ und können miteinander über Services kommunizieren.
@@ -62,22 +64,29 @@ Zuletzt erstellen wir eine _route_ für die app, um diese öffentlich aufrufbar 
 
 Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
 
-> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-1/solution.md) überprüft werden, ob alles richtig gemacht wurde.
-
 
 ## 2 - App Deployment mit Fehlersuche
+
+> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-2/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+
     - Projekt erstellen
     - Deployen einer bestehenden app mit fertigem image und Deployment file. Falsch gesetzte ports auf die health checks. 
     - Herausfinden was das Problem ist und im Deployment file die ports auf die health checks korrigieren
     - Projekt löschen
 
 ## 3 - Helm
+
+> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-3/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+
     - Projekt erstellen
     - Erstellen eines helm charts für eine fertige Anwendung mit mariadb
     - Deployen des helm charts
     - Projekt löschen
 
 ## 4 - Service Mesh
+
+> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-4/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+
     - Projekt erstellen
     - Projekt zur ServiceMeshMemberRoll hinzufügen
     - Vorhandenes Projekt (t.b.d.: Bookinfo, istio-tutorial, eigenes Projekt?) deployen
