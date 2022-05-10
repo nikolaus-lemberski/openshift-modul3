@@ -72,10 +72,63 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 > **⚠ HINWEIS:**  
 > Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-2/solution.md) prüfen, ob alles richtig gemacht wurde.
 
-    - Projekt erstellen
-    - Deployen einer bestehenden app mit fertigem image und Deployment file. Falsch gesetzte ports auf die health checks. 
-    - Herausfinden was das Problem ist und im Deployment file die ports auf die health checks korrigieren
-    - Projekt löschen
+## Projekt erstellen
+
+Wie gehabt erstellen wir wieder ein Projekt, diesmal mit dem Namen **nodeapp** und vorangestelltem Usernamen, also nach dem Schema  **user123-nodeapp**.
+
+Zuerst speichern wir das folgende Deploymentfile lokal auf dem Rechner als "Deployment.yml":
+
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp
+  labels:
+    app: nodeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      - name: nodeapp
+        image: quay.io/nlembers/project-2:v1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp
+spec:
+  selector:
+    app: nodeapp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+```
+
+Anschließend deployen wir die Applikation in unserem neu erstellten Projekt:  
+`oc create -f Deployment.yml`
+
+## Fehlersuche und -behebung
+
+Nachdem die app erstellt ist, wird der pod mit der app crashen. Die Aufgabe ist nun, die Ursache für den crash zu finden und das Problem zu beheben.
+
+### Applikation öffentlich aufrufbar machen
+
+Nachdem das Problem erfolgreich behoben wurde, erstellen wir eine _route_ für die app, um diese öffentlich aufrufbar zu machen, und testen (z.B. mit curl), ob die Anwendung erreichbar ist.
+
+### Projekt löschen
+
+Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
+
 
 ## 3 - Helm
 
