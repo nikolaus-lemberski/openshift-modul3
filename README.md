@@ -16,7 +16,7 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 ## 1 - App Deployment
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben versuchen, selbst zu lösen und erst dann über die [Lösung](solution-1/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-1/solution.md) prüfen, ob alles richtig gemacht wurde.
 
 ### Projekt erstellen
 
@@ -68,7 +68,8 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 ## 2 - App Deployment mit Fehlersuche
 
-> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-2/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+> **⚠ HINWEIS:**  
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-2/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Deployen einer bestehenden app mit fertigem image und Deployment file. Falsch gesetzte ports auf die health checks. 
@@ -77,7 +78,8 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 ## 3 - Helm
 
-> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-3/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+> **⚠ HINWEIS:**  
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-3/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Erstellen eines helm charts für eine fertige Anwendung mit mariadb
@@ -86,7 +88,8 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 ## 4 - Service Mesh
 
-> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-4/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+> **⚠ HINWEIS:**  
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-4/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Projekt zur ServiceMeshMemberRoll hinzufügen
