@@ -11,7 +11,13 @@ oc logs -f <build-pod>
 
 oc exec -it <app-pod> -- /bin/bash  
 > curl localhost:8080
+```
 
+Health Checks konfigurieren:  
+![OpenShift Web Console](healthchecks.png "OpenShift Web Console")
+
+
+```shell
 oc expose <username>-hello  
 oc get route  
 
