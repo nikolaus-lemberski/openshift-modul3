@@ -27,7 +27,7 @@ oc exec -it <app-pod> -- /bin/bash
 ## App öffentlich erreichbar machen
 
 ```shell
-oc expose <username>-hello  
+oc expose svc hello  
 oc get route  
 
 curl <route>  
