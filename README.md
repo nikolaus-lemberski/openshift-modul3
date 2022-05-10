@@ -201,11 +201,9 @@ org.mariadb.jdbc.Driver
 * SPRING_DATASOURCE_URL  
 jdbc:mariadb://tasks-mariadb:3306/tasksdb
 * SPRING_DATASOURCE_USERNAME  
-tasksuser
+der Username (sh. oben)
 * SPRING_DATASOURCE_PASSWORD
-supersecretpwd
-
-Sollten oben in der Konfiguration der MariaDB andere Werte für z.B. User oder Passwort verwendet worden sein, bitte entsprechend diese verwenden.
+das Passwort (sh. oben)
 
 ### Anwendung installieren
 
@@ -214,7 +212,7 @@ In unserem Verzeichnis _tasks_ nutzen wir Helm für die Installation:
 
 ### Anwendung testen
 
-Wie in den vorherigen Übungen können wir nun über `oc get all`, `oc logs` etc. die Erstellung der Anwendung prüfen. Läuft alles korrekt, erstellen wir eine Route auf den Service der Java Anwendung und rufen diese im Browser unter dem Pfad *'/api'* auf. Es öffnet sich ein HAL Explorer, mit dem man mit dem REST Service interagieren kann. Curl oder httpie etc. können natürlich ebenso verwendet werden.
+Wie in den vorherigen Übungen können wir nun über `oc get all`, `oc logs` etc. die Anwendung prüfen. Läuft alles korrekt, erstellen wir eine Route auf den Service der Java Anwendung und rufen diese im Browser unter dem Pfad *'/api'* auf. Es öffnet sich ein HAL Explorer, mit dem man mit dem REST Service interagieren kann. Curl oder httpie etc. können natürlich ebenso verwendet werden.
 
 **Zusatzaufgaben:** 
 
