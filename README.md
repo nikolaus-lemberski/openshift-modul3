@@ -62,6 +62,8 @@ Zuletzt erstellen wir eine _route_ für die app, um diese öffentlich aufrufbar 
 
 Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
 
+> :warning: Bitte alle Aufgaben versuchen, selbst zu lösen. Anschließend kann über die [Lösung](solution-1/solution.md) überprüft werden, ob alles richtig gemacht wurde.
+
 
 ## 2 - App Deployment mit Fehlersuche
     - Projekt erstellen
