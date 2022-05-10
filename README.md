@@ -16,7 +16,7 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 ## 1 - App Deployment
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-1/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-1/solution.md) prüfen, ob alles richtig gemacht wurde.
 
 ### Projekt erstellen
 
@@ -31,7 +31,7 @@ In unserem neuen Projekt deployen wir eine fertige nodejs Anwendung über OpenSh
 Die Applikation:
 * liegt in Git unter folgender Adresse:  
 https://github.com/nikolaus-lemberski/openshift-modul3
-* dort im Unterordner (context directory) _hello-world_
+* dort im Unterordner (context directory) _projects/hello-world_
 * nutzt nodejs in der Version 16 mit dem ubi8 baseimage, als ImageStream _nodejs:16-ubi8-minimal_ in OpenShift bereitgestellt
 Hinweis: es muss kein Dockerfile erstellt werden!
 * als build strategy soll _source_ verwendet werden
@@ -69,7 +69,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 2 - App Deployment mit Fehlersuche
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-2/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-2/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Deployen einer bestehenden app mit fertigem image und Deployment file. Falsch gesetzte ports auf die health checks. 
@@ -79,7 +79,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 3 - Helm
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-3/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-3/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Erstellen eines helm charts für eine fertige Anwendung mit mariadb
@@ -89,7 +89,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 4 - Service Mesh
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solution-4/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-4/solution.md) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Projekt zur ServiceMeshMemberRoll hinzufügen

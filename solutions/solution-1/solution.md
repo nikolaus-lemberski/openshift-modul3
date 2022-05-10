@@ -4,7 +4,7 @@
 
 ```shell
 oc new-project <username>-hello  
-oc new-app --name hello nodejs:16-ubi8-minimal~https://github.com/nikolaus-lemberski/openshift-modul3 --context-dir hello-world
+oc new-app --name hello nodejs:16-ubi8-minimal~https://github.com/nikolaus-lemberski/openshift-modul3 --context-dir projects/hello-world
 ```
 
 ## Pods und Container prüfen
