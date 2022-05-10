@@ -32,6 +32,7 @@ Die Applikation:
 * liegt in Git unter folgender Adresse:  
 https://github.com/nikolaus-lemberski/openshift-modul3
 * dort im Unterordner (context directory) _projects/project-1_
+* erhält als Applikationsnamen "hello"
 * nutzt nodejs in der Version 16 mit dem ubi8 baseimage, als ImageStream _nodejs:16-ubi8-minimal_ in OpenShift bereitgestellt
 Hinweis: es muss kein Dockerfile erstellt werden!
 * als build strategy soll _source_ verwendet werden
