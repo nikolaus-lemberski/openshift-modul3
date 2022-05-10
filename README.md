@@ -135,10 +135,97 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 > **⚠ HINWEIS:**  
 > Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-3/solution.md) prüfen, ob alles richtig gemacht wurde.
 
-    - Projekt erstellen
-    - Erstellen eines helm charts für eine fertige Anwendung mit mariadb
-    - Deployen des helm charts
-    - Projekt löschen
+## Projekt erstellen
+
+Wie gehabt erstellen wir wieder ein Projekt, diesmal mit dem Namen **helmapp** und vorangestelltem Usernamen, also nach dem Schema  **user123-helmapp**.
+
+## Helm installieren
+
+Helm ist ein Paketmanager für Kubernetes und erlaubt - neben dem Deployment fertiger Anwendungen als helm chart - die Erstellung eigener Anwendungslandschaften. Dazu installieren wir Helm auf unserem Rechner, falls noch nicht vorhanden:
+
+[Helm](https://helm.sh/docs/intro/install/)
+
+Die Installation kann über `helm version` überprüft werden. Es sollte in jedem Fall helm in der Version 3 verwendet werden. Die Version 2 hat noch gegen "tiller", eine auf Kubernetes installierte Anwendung gearbeitet und funktioniert nicht, da wir in unserer Umgebung kein tiller installiert haben.
+
+Wer zum ersten mal mit Helm zu tun hat, kann also Vorbereitung den [Helm Chart Template Guide](https://helm.sh/docs/chart_template_guide/getting_started/) durcharbeiten. 
+
+## Helm Chart erstellen
+
+Wir erstellen ein neues Helm Chart mit dem Namen **tasks**:  
+`helm create tasks`
+
+Und wechseln in das neu erstellte Verzeichnis _tasks_.
+
+Unsere app besteht aus einer Java Spring Anwendung, die eine REST Schnittstelle anbietet und Daten in einer Datenbank (MariaDB) speichert. Wir möchten die Java Anwendung mit der Datenbank zusammen in unserem Helm Chart konfigurieren und über Helm deployen.
+
+### MariaDB hinzufügen
+
+In _Chart.yaml_ fügen wir MariaDB als _dependency_ hinzu. 
+
+* Name: mariadb
+* Version: 10.7.3
+* Repository: https://charts.bitnami.com/bitnami
+
+In _values.yaml_ konfigurieren wir die MariaDB:
+
+```yml
+mariadb:
+  auth:
+    username: tasksuser
+    password: supersecretpwd
+    database: tasksdb
+  primary:
+    podSecurityContext:
+      enabled: false
+    containerSecurityContext:
+      enabled: false
+```
+
+Damit die dependency hinzugefügt wird, weisen wir Helm zum Aktualisieren der Abhängigkeiten an:  
+`helm dependency update`
+
+### Java Anwendung hinzufügen
+
+Ebenfalls in _values.yaml_ wird das _image_ für unsere Java Anwendung konfiguriert:
+
+* repository: quay.io/nlembers/spring-tasks
+* tag: v1.1
+* pullPolicy: bitte eine geeignete pull policy angeben
+
+Die Spring Anwendung benötigt die Zugangsdaten für die Datenbank sowie den Treibernamen. Diese müssen als environment Variablen übergeben werden. Environment Variablen werden in _values.yaml_ hinzugefügt und müssen dann noch im Deployment (_/templates/deployment.yaml_) über das Helm templating eingelesen werden.
+
+Die Spring Anwendung erwartet die folgenden Umgebungsvariablen:
+
+* SPRING_DATASOURCE_DRIVER_CLASS_NAME  
+org.mariadb.jdbc.Driver
+* SPRING_DATASOURCE_URL  
+jdbc:mariadb://tasks-mariadb:3306/tasksdb
+* SPRING_DATASOURCE_USERNAME  
+tasksuser
+* SPRING_DATASOURCE_PASSWORD
+supersecretpwd
+
+Sollten oben in der Konfiguration der MariaDB andere Werte für z.B. User oder Passwort verwendet worden sein, bitte entsprechend diese verwenden.
+
+### Anwendung installieren
+
+In unserem Verzeichnis _tasks_ nutzen wir Helm für die Installation:  
+`helm install tasks .``
+
+### Anwendung testen
+
+Wie in den vorherigen Übungen können wir nun über `oc get all`, `oc logs` etc. die Erstellung der Anwendung prüfen. Läuft alles korrekt, erstellen wir eine Route auf den Service der Java Anwendung und rufen diese im Browser unter dem Pfad *'/api'* auf. Es öffnet sich ein HAL Explorer, mit dem man mit dem REST Service interagieren kann. Curl oder httpie etc. können natürlich ebenso verwendet werden.
+
+**Zusatzaufgaben:** 
+
+* Erstellen von ein paar Tasks über den HAL Explorer oder curl
+* Eine shell in die MariaDB öffnen
+* In der MariaDB die Tabelle in der tasksdb auf das Vorhandensein der erstellten Tasks prüfen
+
+### Projekt löschen
+
+Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
+
 
 ## 4 - Service Mesh
 
