@@ -313,7 +313,7 @@ curl -H \
 ```
 
 Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
-> 
+> customer => Error: 503 - preference => UnknownHostException: recommendation
 
 #### Recommendation
 
@@ -332,7 +332,10 @@ curl -H \
 ```
 
 Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
-> 
+> customer => preference => recommendation v1 from '/<hostname/>': 1
+
+Und nach nochmaligem Aufruf:
+> customer => preference => recommendation v2 from '/<hostname/>': 1
 
 ### Service Mesh konfigurieren
 
