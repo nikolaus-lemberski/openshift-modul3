@@ -4,7 +4,7 @@
 
 `oc new-project <username>-nodeapp`
 
-Yaml content kopieren (<Ctrl>-C):  
+Yaml content kopieren (\<Ctrl\>-C):  
 ```yml
 apiVersion: apps/v1
 kind: Deployment
