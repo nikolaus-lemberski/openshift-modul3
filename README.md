@@ -272,9 +272,33 @@ Zuerst machen wir uns mit dem Red Hat OpenShift Service Mesh Operator (basierend
 
 Außerdem werfen wir einen Blick auf die Observability Tools **Kiali**, **Prometheus/Grafana** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
 
+### Vorbereitung durch Trainer
+
+> **⚠ HINWEIS: Das ist ein TODO für den Trainer**
+> ServiceMeshMemberRoll für alle Userprojekte (Namensschema \<username\>-meshapp) erstellen.
+
+```yaml
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  members:
+    # a list of projects joined into the service mesh
+    - your-project-name
+    - another-project-name
+    - ...
+```
+
+Falls die User mit eingeschränkten Rechten arbeiten:
+`oc adm policy add-scc-to-user privileged -z default <username>`
+
 ### Projekt erstellen
 
 Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem Username, also z.B. **user123-meshapp**.
+
+### Anwendung deployen
 
 Anschließend deployen wir 3 kleine Anwendungen:
 
@@ -293,12 +317,40 @@ Die Anwendungen sind drei in Reihe geschaltete apps:
 2. Die "references" app wird von "customer" gerufen und ruft den nächsten service
 3. Die "recommendation" app wird von references gerufen, ist in zwei Versionen installiert und gibt neben einem einfachen Zähler noch den Hostnamen aus.
 
-## Service Mesh
+Wir finden nun in `oc get pods` in READY statt einem nun zwei. In jedem pod sind zwei container:
 
+* der Container mit der Applikation
+* der Container mit dem Service Mesh Proxy (Envoy Proxy)
 
-    - Projekt erstellen
-    - Projekt zur ServiceMeshMemberRoll hinzufügen
-    - Vorhandenes Projekt (t.b.d.: Bookinfo, istio-tutorial, eigenes Projekt?) deployen
-    - Kiali öffnen und Graph analysieren
-    - Jaeger öffnen und traces analysieren
-    - Projekt löschen
+Möchte man mit `oc exec` auf einen Container zugreifen, spezifiziert man den gewünschten über das `-c` flag.
+
+Ist alles gestartet, können wir den customer endpoint (sh. die erstellte _route_) mit curl aufrufen und bekommen idealerweise den response aller drei Anwendungen angezeigt.
+
+### Service Mesh konfigurieren
+
+Aufgabe ist nun, das Service Mesh zu konfigurieren:
+
+1. Die recommendation app liegt in zwei Versionen vor. Diese beiden Versionen sollen dem Service Mesh als _DestinationRule_ angegeben werden.  
+[DestinationRule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
+2. Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.
+[VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+
+Über curl kann nun das Ergebnis geprüft werden, ggf. auch zum Test die Last anders verteilt werden.
+
+Nun fügen wir im recommendation-v2 service einen Fehler ein. Wir gehen mit `oc exec` in den app container von recommendation-v2 und rufen dort mit curl die Adresse **localhost:8080/misbehave** auf. 
+
+Anschließend überprüfen wir das Ergebnis durch mehrfachen Aufruf des customer Service.
+
+Wir simulieren hier einen fehlerhaften Pod oder temporäre Netzwerk-Fehler. Das Service Mesh kann uns nun helfen, unsere Services mehr "resilient" gegen solche Fehler zu machen.
+
+Dazu soll das oben erstellte _VirtualService_ geändert werden, so dass bei Fehlern ein _retry_ ausgeführt wird.
+
+Ist alles korrekt konfiguriert, treten beim Aufruf des customer Service nun keine Fehler von recommendation-v2 mehr auf. Fehlerhafter response vom recommendation-v2 wird vom Service Mesh durch ein "retry" behoben.
+
+### Observability
+
+Das genannte Verhalten schauen wir uns nun in Kiali und Jaeger an.
+
+### Projekt löschen
+
+Zum Schluss löschen wir wieder das Projekt, um Ressourcen freizugeben.
