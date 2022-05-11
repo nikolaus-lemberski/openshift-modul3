@@ -350,7 +350,7 @@ Docs: [VirtualService](https://istio.io/latest/docs/reference/config/networking/
 
 Über curl kann nun das Ergebnis geprüft werden, ggf. auch zum Test die Last anders verteilt werden.
 
-Nun fügen wir im recommendation-v2 service einen Fehler ein. Wir gehen mit `oc exec` in den app container von recommendation-v2 und rufen dort mit curl die Adresse **localhost:8080/misbehave** auf (wer experimentieren mag: der endpoint **localhost:8080/behave** stellt die app wieder funktionstüchtig). 
+Nun fügen wir im recommendation-v2 service einen Fehler ein. Wir gehen mit `oc exec` in den app container von recommendation-v2 und rufen dort mit curl die Adresse **localhost:8080/misbehave** auf (wer experimentieren mag: der endpoint **localhost:8080/behave** stellt die app wieder auf funktionstüchtig). 
 
 Anschließend überprüfen wir das Ergebnis durch mehrfachen Aufruf des customer Service.
 
