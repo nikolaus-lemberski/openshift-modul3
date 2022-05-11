@@ -2,15 +2,53 @@
 
 ## Vorbereitung
 
-Da wir heute "hands on" machen, benötigen wir die OpenShift cli (ein Superset über _kubectl_, das CLI zur Interaktion mit Kubernetes Clustern). Download und Installationsanleitung:
+Nehmt euren User `userX` und loggt euch im CodeReadyWorkspaces ein.
 
-[OpenShift CLI](https://docs.openshift.com/container-platform/4.10/cli_reference/openshift_cli/getting-started-cli.html)
+> Link kommt im Chat
 
-Nach der Installation loggen wir uns ein mit 
+Default Credentials:
 
-`oc login -u <username> <openshift_api_address>`  
+Username:
+`userX` (z.B. `user25`)
+Password:
+`r3dh4t1!`
+
+Klick auf "Add Workspace" und dann öffne den Tab "Custom Workspace".
+Kopiere folgende URL in das Textfeld (neben "Select a devfile template") und klick auf "Load Devfile"
+
+```
+https://raw.githubusercontent.com/nikolaus-lemberski/openshift-modul3/main/cluster-preperation/workshop-tools/workshop-devfile.yaml
+```
+
+Scroll nach unten und klick auf "Create & Open". Das erstellen der Workspaces wird jetzt ein wenig dauern (da alle gleichzeitig starten).
+
+Wenn der Workspace startet, bekommt ihr unten rechts 3 Popups
+
+> Do you trust the authors of https://github.com/nikolaus-lemberski/openshift-modul3.git ?
+
+klickt hier auf `Yes, I trust`
+
+> Do you trust the authors of https://github.com/quarkusio/quarkus-quickstarts.git ?
+
+klickt hier auf `Yes, I trust`
+
+> Do you want to install the recommended extensions redhat/java,vscode/typescript-language-features for your workspace ?
+
+klickt hier auf `No`
+
+
+In dem Workspace findet ihr ein paar Beispielprojekte und ein paar "Tooling" Container. 
+Die Tooling Container findet ihr rechts, wenn ihr auf das "Box" Icon klickt (Rechte Tooling Leiste, drittes Icon von oben)
+
+Öffnet `openshift-tools` und klickt auf `New terminal`. Wählt als `working dir` `modul3` aus.
+
+Es öffnet sich jetzt ein neues Terminal, in welchem ihr euch noch via `oc` CLI anmelden könnt
+
+> ersetzt `userX` durch euren Benutzernamen
+
+`oc login --insecure-skip-tls-verify https://${KUBERNETES_SERVICE_HOST} -u userX -p r3dh4t1!`
+
 Nach der Eingabe des Passwortes sind wir erfolgreich eingeloggt und erhalten eine Willkommens-Nachricht von OpenShift.
-
 Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung gestellt. Anschließend loggen wir uns noch in die Web Konsole von OpenShift ein (Adresse wird ebenfalls vom Trainer zur Verfügung gestellt).
 
 ## 1 - App Deployment
@@ -76,7 +114,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 Wie gehabt erstellen wir wieder ein Projekt, diesmal mit dem Namen **nodeapp** und vorangestelltem Usernamen, also nach dem Schema  **user123-nodeapp**.
 
-Zuerst speichern wir das folgende Deploymentfile lokal auf dem Rechner als "Deployment.yml":
+Zuerst speichern wir das folgende Deploymentfile als "Deployment.yml" im Ordner `modul3`:
 
 ```yml
 apiVersion: apps/v1
@@ -145,8 +183,6 @@ Helm ist ein Paketmanager für Kubernetes und erlaubt - neben dem Deployment fer
 
 [Helm](https://helm.sh/docs/intro/install/)
 
-Die Installation kann über `helm version` überprüft werden. Es sollte in jedem Fall helm in der Version 3 verwendet werden. Die Version 2 hat noch gegen "tiller", eine auf Kubernetes installierte Anwendung gearbeitet und funktioniert nicht, da wir in unserer Umgebung kein tiller installiert haben.
-
 Wer zum ersten mal mit Helm zu tun hat, kann also Vorbereitung den [Helm Chart Template Guide](https://helm.sh/docs/chart_template_guide/getting_started/) durcharbeiten. 
 
 ## Helm Chart erstellen
@@ -196,13 +232,13 @@ Die Spring Anwendung benötigt die Zugangsdaten für die Datenbank sowie den Tre
 
 Die Spring Anwendung erwartet die folgenden Umgebungsvariablen:
 
-* SPRING_DATASOURCE_DRIVER_CLASS_NAME  
-org.mariadb.jdbc.Driver
-* SPRING_DATASOURCE_URL  
-jdbc:mariadb://tasks-mariadb:3306/tasksdb
-* SPRING_DATASOURCE_USERNAME  
+* `SPRING_DATASOURCE_DRIVER_CLASS_NAME`  
+`org.mariadb.jdbc.Driver`
+* `SPRING_DATASOURCE_URL`  
+`jdbc:mariadb://tasks-mariadb:3306/tasksdb`
+* `SPRING_DATASOURCE_USERNAME`  
 der Username (sh. oben)
-* SPRING_DATASOURCE_PASSWORD
+* `SPRING_DATASOURCE_PASSWORD`
 das Passwort (sh. oben)
 
 ### Anwendung installieren
