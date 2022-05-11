@@ -2,10 +2,55 @@
 
 ## App erstellen
 
-```shell
-oc new-project <username>-nodeapp  
-oc create -f Deployment.yml
+`oc new-project <username>-nodeapp`
+
+Yaml content kopieren (<Ctrl>-C):  
+```yml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp
+  labels:
+    app: nodeapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      containers:
+      - name: nodeapp
+        image: quay.io/nlembers/project-2:v1.0
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodeapp
+spec:
+  selector:
+    app: nodeapp
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
 ```
+... und in einem file _Deployment.yml_ speichern.  
+
+Z.B.  
+```shell
+cat > /path/to/dir/Deployment.yml  
+<Ctrl>-V  
+<Ctrl>-D
+```
+
+Deployment file anwenden:  
+`oc create -f /path/to/dir/Deployment.yml`
 
 ## Fehlersuche
 
