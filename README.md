@@ -291,8 +291,8 @@ spec:
     - ...
 ```
 
-Falls die User mit eingeschränkten Rechten arbeiten:
-`oc adm policy add-scc-to-user privileged -z default <username>`
+Für die erstellten Projekte:
+`oc adm policy add-scc-to-user privileged -z default -n <projectname>`
 
 ### Projekt erstellen
 
@@ -302,29 +302,59 @@ Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem User
 
 Anschließend deployen wir 3 kleine Anwendungen:
 
+#### Customer
+
 ```
 curl -H \
   "Accept: application/vnd.github.v4.raw" \
-  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/Deployment.yml" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/customer.yml" \
   | kubectl create -f -
 
 oc expose svc customer
 ```
 
-Die Anwendungen sind drei in Reihe geschaltete apps:
-
-1. Die "customer" app soll von außen über unsere oben erstellte _route_ aufrufbar sein
-2. Die "references" app wird von "customer" gerufen und ruft den nächsten service
-3. Die "recommendation" app wird von references gerufen, ist in zwei Versionen installiert und gibt neben einem einfachen Zähler noch den Hostnamen aus.
-
-Wir finden nun in `oc get pods` in READY statt einem nun zwei. In jedem pod sind zwei container:
+Interessant ist im Vergleich zu unseren vorherigen Projekten: In der READY Spalte von `oc get pods` stehen nun zwei (2/2) statt wie bisher eins (1/1). In jedem pod sind zwei container:
 
 * der Container mit der Applikation
 * der Container mit dem Service Mesh Proxy (Envoy Proxy)
 
 Möchte man mit `oc exec` auf einen Container zugreifen, spezifiziert man den gewünschten über das `-c` flag.
 
-Ist alles gestartet, können wir den customer endpoint (sh. die erstellte _route_) mit curl aufrufen und bekommen idealerweise den response aller drei Anwendungen angezeigt.
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> customer => UnknownHostException: preference
+
+#### Preference
+
+Nun deployen wir die preference Anwendung:
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/preference.yml" \
+  | kubectl create -f -
+```
+
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> 
+
+#### Recommendation
+
+Die recommendation app wird für unser Szenario in zwei Versionen deployed:
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/recommendation-v1.yml" \
+  | kubectl create -f -
+
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/recommendation-v2.yml" \
+  | kubectl create -f -
+```
+
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> 
 
 ### Service Mesh konfigurieren
 
