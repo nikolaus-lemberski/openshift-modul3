@@ -1,0 +1,9 @@
+FROM registry.redhat.io/openshift4/ose-cli
+
+USER root
+
+RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/odo/latest/odo-linux-amd64 -o /usr/local/bin/odo && chmod +x /usr/local/bin/odo
+RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/helm/latest/helm-linux-amd64 -o /usr/local/bin/helm && chmod +x /usr/local/bin/helm
+RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/kam/latest/kam-linux-amd64 -o /usr/local/bin/kam && chmod +x /usr/local/bin/kam
+
+ENTRYPOINT ["tail", "-f", "/dev/null"]
