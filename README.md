@@ -242,11 +242,22 @@ Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem User
 
 Anschließend deployen wir 3 kleine Anwendungen:
 
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/Deployment.yml" \
+  | kubectl create -f -
 
+oc expose svc customer
+```
 
+Die Anwendungen sind drei in Reihe geschaltete apps:
 
+1. Die "customer" app soll von außen über unsere oben erstellte _route_ aufrufbar sein
+2. Die "references" app wird von "customer" gerufen und ruft den nächsten service
+3. Die "recommendation" app wird von references gerufen, ist in zwei Versionen installiert und gibt neben einem einfachen Zähler noch den Hostnamen aus.
 
-
+## Service Mesh
 
 
     - Projekt erstellen
