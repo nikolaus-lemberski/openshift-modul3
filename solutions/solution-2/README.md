@@ -43,7 +43,7 @@ spec:
 ... und in einem file _Deployment.yml_ speichern.  
 
 Z.B.  
-```shell
+```sh
 cat > /path/to/dir/Deployment.yml  
 <Ctrl>-V  
 <Ctrl>-D
@@ -56,7 +56,7 @@ Deployment file anwenden:
 
 Zuerst prüfen wir die Logs, entweder über die Web Konsole oder über die cli: 
 
-```shell
+```sh
 oc get pods
 oc logs -f <podname>
 ```
@@ -119,7 +119,7 @@ Anschließend überprüfen wir wieder die Erstellung der Pods und die Logfiles (
 
 ## App öffentlich erreichbar machen
 
-```shell
+```sh
 oc expose nodeapp  
 oc get route  
 
