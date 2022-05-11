@@ -1,10 +1,29 @@
 # Service Mesh
 
-Installation:  
+## Installation:  
+
 https://docs.openshift.com/container-platform/4.10/service_mesh/v2x/installing-ossm.html
 
-Control Plane (in neu zu erstellendem Projekt "istio-system"):  
+### Kurzfassung:
+
+In dieser Reihenfolge erstellen:  
+1. OpenShift Elasticsearch
+2. Red Hat OpenShift distributed tracing platform
+3. Kiali
+4. Red Hat OpenShift Service Mesh
+
+Alles in den _openshift-operators_ namespace, nur ElasticSearch in den _openshift-operators-redhat_ namespace.
+
+## Control Plane
+
 https://docs.openshift.com/container-platform/4.10/service_mesh/v2x/ossm-create-smcp.html#ossm-create-smcp
+
+### Kurzfassung:
+
+1. Projekt "istio-system" erstellen
+2. In diesem Projekt die Control Plane mit den defaults installieren.
+
+## Member Rolls
 
 ServiceMeshMemberRoll für alle Userprojekte (Namensschema \<username\>-meshapp) erstellen:
 
@@ -21,6 +40,8 @@ spec:
     - another-project-name
     - ...
 ```
+
+## SCC Context
 
 Und für alle Projekte:
 `oc adm policy add-scc-to-user privileged -z default -n <projectname>`
