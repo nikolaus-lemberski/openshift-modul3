@@ -344,9 +344,9 @@ Und nach nochmaligem Aufruf:
 Aufgabe ist nun, das Service Mesh zu konfigurieren:
 
 1. Die recommendation app liegt in zwei Versionen vor. Diese beiden Versionen sollen dem Service Mesh als _DestinationRule_ angegeben werden.  
-[DestinationRule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
-2. Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.
-[VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+Docs: [DestinationRule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
+2. Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.  
+Docs: [VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
 
 Über curl kann nun das Ergebnis geprüft werden, ggf. auch zum Test die Last anders verteilt werden.
 
