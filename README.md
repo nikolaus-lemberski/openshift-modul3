@@ -70,7 +70,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 2 - App Deployment mit Fehlersuche
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-2/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-2/) prüfen, ob alles richtig gemacht wurde.
 
 ## Projekt erstellen
 
@@ -133,7 +133,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 3 - Helm
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-3/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-3/) prüfen, ob alles richtig gemacht wurde.
 
 ## Projekt erstellen
 
@@ -228,7 +228,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 ## 4 - Service Mesh
 
 > **⚠ HINWEIS:**  
-> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-4/solution.md) prüfen, ob alles richtig gemacht wurde.
+> Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-4/) prüfen, ob alles richtig gemacht wurde.
 
     - Projekt erstellen
     - Projekt zur ServiceMeshMemberRoll hinzufügen
