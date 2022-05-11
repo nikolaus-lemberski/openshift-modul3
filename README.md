@@ -230,6 +230,31 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 > **⚠ HINWEIS:**  
 > Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-4/) prüfen, ob alles richtig gemacht wurde.
 
+### Service Mesh Operator
+
+Zuerst machen wir uns mit dem Red Hat OpenShift Service Mesh Operator (basierend auf Istio) vertraut. Dazu öffnen wir die Web Konsole in der Admin Perspektive und schauen uns den Operator unter "Installed Operators" an. Bitte nichts verändern.
+
+Außerdem werfen wir einen Blick auf die Observability Tools **Kiali**, **Prometheus/Grafana** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
+
+### Projekt erstellen
+
+Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem Username, also z.B. **user123-meshapp**.
+
+Anschließend deployen wir 3 kleine Anwendungen:
+
+```
+curl \
+  -H 'Accept: application/vnd.github.v4.raw' \
+  -o "$TMPDIR" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/Deployment.yml"  \
+  | kubectl create -f /dev/stdin
+```
+
+
+
+
+
+
     - Projekt erstellen
     - Projekt zur ServiceMeshMemberRoll hinzufügen
     - Vorhandenes Projekt (t.b.d.: Bookinfo, istio-tutorial, eigenes Projekt?) deployen
