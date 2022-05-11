@@ -270,29 +270,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 Zuerst machen wir uns mit dem Red Hat OpenShift Service Mesh Operator (basierend auf Istio) vertraut. Dazu öffnen wir die Web Konsole in der Admin Perspektive und schauen uns den Operator unter "Installed Operators" an. Bitte nichts verändern.
 
-Außerdem werfen wir einen Blick auf die Observability Tools **Kiali**, **Prometheus/Grafana** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
-
-### Vorbereitung durch Trainer
-
-> **⚠ HINWEIS: Das ist ein TODO für den Trainer**
-> ServiceMeshMemberRoll für alle Userprojekte (Namensschema \<username\>-meshapp) erstellen.
-
-```yaml
-apiVersion: maistra.io/v1
-kind: ServiceMeshMemberRoll
-metadata:
-  name: default
-  namespace: istio-system
-spec:
-  members:
-    # a list of projects joined into the service mesh
-    - your-project-name
-    - another-project-name
-    - ...
-```
-
-Für die erstellten Projekte:
-`oc adm policy add-scc-to-user privileged -z default -n <projectname>`
+Außerdem werfen wir einen Blick auf die Observability Tools **Kiali** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
 
 ### Projekt erstellen
 
