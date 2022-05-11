@@ -242,13 +242,7 @@ Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem User
 
 Anschließend deployen wir 3 kleine Anwendungen:
 
-```
-curl \
-  -H 'Accept: application/vnd.github.v4.raw' \
-  -o "$TMPDIR" \
-  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/Deployment.yml"  \
-  | kubectl create -f /dev/stdin
-```
+
 
 
 
