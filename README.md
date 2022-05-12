@@ -13,14 +13,15 @@ Username:
 Password:
 `r3dh4t1!`
 
-Klick auf "Add Workspace" und dann öffne den Tab "Custom Workspace".
-Kopiere folgende URL in das Textfeld (neben "Select a devfile template") und klick auf "Load Devfile"
+geh auf mit Maus über deinen Workspace (z.b. user25-workspace), öffne das Menü (3 Punkte) und klick auf "Edit Workspace"
+Kopiere folgende YAML in das Textfeld und klick auf "Save"
 
 ```
 https://raw.githubusercontent.com/nikolaus-lemberski/openshift-modul3/main/cluster-preperation/workshop-tools/workshop-devfile.yaml
 ```
 
-Scroll nach unten und klick auf "Create & Open". Das erstellen der Workspaces wird jetzt ein wenig dauern (da alle gleichzeitig starten).
+Danach öffne wieder das Menü an deinem Workspace und klick auf "Restart Workspace"
+Das erstellen der Workspaces wird jetzt ein wenig dauern (da alle gleichzeitig starten).
 
 Wenn der Workspace startet, bekommt ihr unten rechts 3 Popups
 
