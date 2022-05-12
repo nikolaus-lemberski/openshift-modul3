@@ -27,6 +27,8 @@ https://docs.openshift.com/container-platform/4.10/service_mesh/v2x/ossm-create-
 
 ServiceMeshMemberRoll für alle Userprojekte (Namensschema \<username\>-meshapp) erstellen:
 
+`oc apply -f ./servicemeshmember.yaml`
+
 ```yaml
 apiVersion: maistra.io/v1
 kind: ServiceMeshMemberRoll
@@ -43,5 +45,5 @@ spec:
 
 ## SCC Context
 
-Und für alle Projekte:
-`oc adm policy add-scc-to-user privileged -z default -n <projectname>`
+Und für alle Projekte(nachdem sie erstellt wurden):
+`oc adm policy add-scc-to-user privileged -z default -n user{1..39}`

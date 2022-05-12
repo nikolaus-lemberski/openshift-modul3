@@ -1,0 +1,46 @@
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: istio-system
+spec:
+  members:
+    - user1-meshapp
+    - user2-meshapp
+    - user3-meshapp
+    - user4-meshapp
+    - user5-meshapp
+    - user6-meshapp
+    - user7-meshapp
+    - user8-meshapp
+    - user9-meshapp
+    - user10-meshapp
+    - user11-meshapp
+    - user12-meshapp
+    - user13-meshapp
+    - user14-meshapp
+    - user15-meshapp
+    - user16-meshapp
+    - user17-meshapp
+    - user18-meshapp
+    - user19-meshapp
+    - user20-meshapp
+    - user21-meshapp
+    - user22-meshapp
+    - user23-meshapp
+    - user24-meshapp
+    - user25-meshapp
+    - user26-meshapp
+    - user27-meshapp
+    - user28-meshapp
+    - user29-meshapp
+    - user31-meshapp
+    - user32-meshapp
+    - user33-meshapp
+    - user34-meshapp
+    - user35-meshapp
+    - user36-meshapp
+    - user37-meshapp
+    - user38-meshapp
+    - user39-meshapp
+    - opentlc-mgr-meshapp
