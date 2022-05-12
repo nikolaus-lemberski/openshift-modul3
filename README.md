@@ -271,24 +271,100 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 Zuerst machen wir uns mit dem Red Hat OpenShift Service Mesh Operator (basierend auf Istio) vertraut. Dazu öffnen wir die Web Konsole in der Admin Perspektive und schauen uns den Operator unter "Installed Operators" an. Bitte nichts verändern.
 
-Außerdem werfen wir einen Blick auf die Observability Tools **Kiali**, **Prometheus/Grafana** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
+Außerdem werfen wir einen Blick auf die Observability Tools **Kiali** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
 
 ### Projekt erstellen
 
 Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem Username, also z.B. **user123-meshapp**.
 
+### Anwendung deployen
+
 Anschließend deployen wir 3 kleine Anwendungen:
 
+#### Customer
 
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/customer.yml" \
+  | kubectl create -f -
 
+oc expose svc customer
+```
 
+Interessant ist im Vergleich zu unseren vorherigen Projekten: In der READY Spalte von `oc get pods` stehen nun zwei (2/2) statt wie bisher eins (1/1). In jedem pod sind zwei container:
 
+* der Container mit der Applikation
+* der Container mit dem Service Mesh Proxy (Envoy Proxy)
 
+Möchte man mit `oc exec` auf einen Container zugreifen, spezifiziert man den gewünschten über das `-c` flag.
 
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> customer => UnknownHostException: preference
 
-    - Projekt erstellen
-    - Projekt zur ServiceMeshMemberRoll hinzufügen
-    - Vorhandenes Projekt (t.b.d.: Bookinfo, istio-tutorial, eigenes Projekt?) deployen
-    - Kiali öffnen und Graph analysieren
-    - Jaeger öffnen und traces analysieren
-    - Projekt löschen
+#### Preference
+
+Nun deployen wir die preference Anwendung:
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/preference.yml" \
+  | kubectl create -f -
+```
+
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> customer => Error: 503 - preference => UnknownHostException: recommendation
+
+#### Recommendation
+
+Die recommendation app wird für unser Szenario in zwei Versionen deployed:
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/recommendation-v1.yml" \
+  | kubectl create -f -
+```
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/recommendation-v2.yml" \
+  | kubectl create -f -
+```
+
+Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+> customer => preference => recommendation v1 from 'recommendation-abc': 1
+
+Und nach nochmaligem Aufruf:
+> customer => preference => recommendation v2 from 'recommendation-xyz': 1
+
+### Service Mesh konfigurieren
+
+Aufgabe ist nun, das Service Mesh zu konfigurieren:
+
+1. Die recommendation app liegt in zwei Versionen vor. Diese beiden Versionen sollen dem Service Mesh als _DestinationRule_ angegeben werden.  
+Docs: [DestinationRule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
+2. Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.  
+Docs: [VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+
+Über curl kann nun das Ergebnis geprüft werden, ggf. auch zum Test die Last anders verteilt werden.
+
+Nun fügen wir im recommendation-v2 service einen Fehler ein. Wir gehen mit `oc exec` in den app container von recommendation-v2 und rufen dort mit curl die Adresse **localhost:8080/misbehave** auf (wer experimentieren mag: der endpoint **localhost:8080/behave** stellt die app wieder auf funktionstüchtig). 
+
+Anschließend überprüfen wir das Ergebnis durch mehrfachen Aufruf des customer Service.
+
+Wir simulieren hier einen fehlerhaften Pod oder temporäre Netzwerk-Fehler. Das Service Mesh kann uns nun helfen, unsere Services mehr "resilient" gegen solche Fehler zu machen.
+
+Dazu soll das oben erstellte _VirtualService_ geändert werden, so dass bei Fehlern ein _retry_ ausgeführt wird.
+
+Ist alles korrekt konfiguriert, treten beim Aufruf des customer Service nun keine Fehler von recommendation-v2 mehr auf. Fehlerhafter response vom recommendation-v2 wird vom Service Mesh durch ein "retry" behoben.
+
+### Observability
+
+Das genannte Verhalten schauen wir uns nun in Kiali und Jaeger an.
+
+### Projekt löschen
+
+Zum Schluss löschen wir wieder das Projekt, um Ressourcen freizugeben.
