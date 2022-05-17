@@ -197,13 +197,19 @@ Unsere app besteht aus einer Java Spring Anwendung, die eine REST Schnittstelle 
 
 ### MariaDB hinzufügen
 
-In _Chart.yaml_ fügen wir MariaDB als _dependency_ hinzu. 
+In _Chart.yaml_ fügen wir MariaDB als _dependency_ hinzu.
 
-* Name: mariadb
-* Version: 10.7.3
-* Repository: https://charts.bitnami.com/bitnami
+Dazua fügen wir am Ende von _Chart.yaml_ an:
+```yaml
+dependencies:
+- name: mariadb
+  version: 9.3.11
+  repository: https://charts.bitnami.com/bitnami
+```
 
-In _values.yaml_ konfigurieren wir die MariaDB:
+Ein anschließendes `helm dependency update` lädt die MariaDB in das Projekt.
+
+In _values.yaml_ erfolgt nun noch die Konfiguration der  MariaDB:
 
 ```yml
 mariadb:
@@ -223,29 +229,62 @@ Damit die dependency hinzugefügt wird, weisen wir Helm zum Aktualisieren der Ab
 
 ### Java Anwendung hinzufügen
 
-Ebenfalls in _values.yaml_ wird das _image_ für unsere Java Anwendung konfiguriert:
+Ebenfalls in _values.yaml_ wird das _image_ für unsere Java Anwendung konfiguriert. In _values.yml_ am Anfang den _image_ Eintrag wie folgt aktualisieren:
 
-* repository: quay.io/nlembers/spring-tasks
-* tag: v1.1
-* pullPolicy: bitte eine geeignete pull policy angeben
+```yaml
+image:
+  repository: quay.io/nlembers/spring-tasks
+  pullPolicy: IfNotPresent
+  tag: "v1.1"
+```
 
 Die Spring Anwendung benötigt die Zugangsdaten für die Datenbank sowie den Treibernamen. Diese müssen als environment Variablen übergeben werden. Environment Variablen werden in _values.yaml_ hinzugefügt und müssen dann noch im Deployment (_/templates/deployment.yaml_) über das Helm templating eingelesen werden.
 
-Die Spring Anwendung erwartet die folgenden Umgebungsvariablen:
+In _values.yaml_ fügen wir ganz unten die environment Variablen der MariaDb hinzu:
 
-* `SPRING_DATASOURCE_DRIVER_CLASS_NAME`  
-`org.mariadb.jdbc.Driver`
-* `SPRING_DATASOURCE_URL`  
-`jdbc:mariadb://tasks-mariadb:3306/tasksdb`
-* `SPRING_DATASOURCE_USERNAME`  
-der Username (sh. oben)
-* `SPRING_DATASOURCE_PASSWORD`
-das Passwort (sh. oben)
+```yaml
+env:
+  - name: "SPRING_DATASOURCE_DRIVER_CLASS_NAME"
+    value: "org.mariadb.jdbc.Driver"
+  - name: "SPRING_DATASOURCE_URL"
+    value: "jdbc:mariadb://tasks-mariadb:3306/tasksdb"
+  - name: "SPRING_DATASOURCE_USERNAME"
+    value: "tasksuser"
+  - name: "SPRING_DATASOURCE_PASSWORD"
+    value: "supersecretpwd"
+```
+
+Im file _templates/deployment.yml_ in der _containers_ section unterhalb von _imagePullPolicy_ hinzufügen (auf korrekte Einrückung achten!):
+
+```yaml
+env:
+  {{- range .Values.env }}
+- name: {{ .name }}
+  value: {{ .value }}
+  {{- end }}
+```
+
+Gleich darunter die ports und probes konfigurieren und auf port 8080 umstellen:
+
+```yaml
+ports:
+  - name: http
+    containerPort: 8080
+    protocol: TCP
+livenessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: 8080
+```
 
 ### Anwendung installieren
 
 In unserem Verzeichnis _tasks_ nutzen wir Helm für die Installation:  
-`helm install tasks .``
+`helm install tasks .`
 
 ### Anwendung testen
 

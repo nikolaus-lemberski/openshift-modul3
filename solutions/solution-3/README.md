@@ -17,7 +17,17 @@ image:
   tag: "v1.1"
 ```
 
-Im gleichen file ganz unten hinzufügen:
+Und in _Chart.yaml_ am Ende anfügen:
+```yaml
+dependencies:
+- name: mariadb
+  version: 9.3.11
+  repository: https://charts.bitnami.com/bitnami
+```
+
+Ein anschließendes `helm dependency update` lädt die MariaDB in das Projekt.
+
+Nun erfolgt die Konfiguration der MariaDB in _values.yaml_:
 
 ```yaml
 mariadb:
