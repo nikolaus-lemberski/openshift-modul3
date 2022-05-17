@@ -82,6 +82,7 @@ readinessProbe:
 ## Helm Chart anwenden
 
 ```sh
+helm repo add bitnami https://charts.bitnami.com/bitnami  
 helm dependency update  
 helm install tasks .
 ```
