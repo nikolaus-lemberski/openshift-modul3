@@ -197,7 +197,7 @@ Unsere app besteht aus einer Java Spring Anwendung, die eine REST Schnittstelle 
 
 ### MariaDB hinzufügen
 
-Wir möchten MariaDB als fertiges Helm Chart von Bitnami beziehen. Dazu fügen wir zuerst das Bitname Repo hinzu:  
+Wir möchten MariaDB als fertiges Helm Chart von Bitnami beziehen. Dazu fügen wir zuerst das Bitnami Repo hinzu:  
 `helm repo add bitnami https://charts.bitnami.com/bitnami`  
 
 Und konfigurieren in _Chart.yaml_ die MariaDB als _dependency_. Dazu fügen wir am Ende von _Chart.yaml_ an:  
