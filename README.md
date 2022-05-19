@@ -13,7 +13,10 @@ Username:
 Password:
 `r3dh4t1!`
 
-geh auf mit Maus über deinen Workspace (z.b. user25-workspace), öffne das Menü (3 Punkte) und klick auf "Edit Workspace"
+Geh mit Maus links über deinen Workspace (z.b. user25-workspace), öffne das Menü (3 Punkte) und klick auf "Edit Workspace"
+
+![Edit Workspace](/images/codeready_workspaces_config.png "CodeReady Workspaces Config")
+
 Kopiere folgende YAML in das Textfeld und klick auf "Save"
 
 ```

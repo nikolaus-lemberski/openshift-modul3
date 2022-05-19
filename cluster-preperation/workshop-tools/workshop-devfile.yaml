@@ -25,6 +25,10 @@ components:
         name: GLOBALODOCONFIG
       - value: /home/jboss/config/kube/kubeconfig.yaml
         name: KUBECONFIG
+      - value: /home/jboss/config/helm
+        name: HELM_CONFIG_HOME
+      - value: /home/jboss/config/helm
+        name: HELM_CACHE_HOME
   - id: redhat/vscode-openshift-connector/latest
     type: chePlugin
     alias: oc-tools
