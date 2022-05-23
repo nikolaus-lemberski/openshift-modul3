@@ -343,7 +343,8 @@ curl -H \
 ```
 
 Nachdem das Gateway erstellt ist, können wir es von außen über _curl_ auf der Adresse des Service Mesh Gateway im Kontext-Pfad _/customer_ aufrufen:  
-`curl istio-ingressgateway-USERNAME-istio-system.apps.cluster-XYZ-SEE-YOUR-OPENSHIFT-ADDRESS.opentlc.com/customer`
+`curl istio-ingressgateway-USERNAME-istio-system.apps.cluster-XYZ-SEE-YOUR-OPENSHIFT-ADDRESS.opentlc.com/customer`  
+Zum Beispiel: _istio-ingressgateway-user1-istio-system.apps.cluster-rdbr4.rdbr4.sandbox1817.opentlc.com/customer_
 
 Interessant ist im Vergleich zu unseren vorherigen Projekten: In der READY Spalte von `oc get pods` stehen nun zwei (2/2) statt wie bisher eins (1/1). In jedem pod sind zwei container:
 
