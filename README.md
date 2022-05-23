@@ -310,15 +310,22 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 > **⚠ HINWEIS:**  
 > Bitte alle Aufgaben selbst lösen und dann über die [Lösung](solutions/solution-4/) prüfen, ob alles richtig gemacht wurde.
 
-### Service Mesh Operator
-
-Zuerst machen wir uns mit dem Red Hat OpenShift Service Mesh Operator (basierend auf Istio) vertraut. Dazu öffnen wir die Web Konsole in der Admin Perspektive und schauen uns den Operator unter "Installed Operators" an. Bitte nichts verändern.
-
-Außerdem werfen wir einen Blick auf die Observability Tools **Kiali** und **Jaeger**. Die Adressen finden wir unter Networking > Routes.
-
 ### Projekt erstellen
 
-Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem Username, also z.B. **user123-meshapp**.
+Wie gehabt erstellen wir zuerst ein Projekt **meshapp** mit vorangestelltem Username, also z.B. **userX-meshapp**.
+
+Service Mesh ist bereits installiert und nun benötigen wir noch eine _ServiceMeshMemberRoll_ für unser neu erstelltes Projekt. Dazu erstellen wir die member roll im namespace _userX-istio_system_ (yaml file lokal speichern, den Usernamen anpassen und über die _oc cli_ anwenden):
+
+```yaml
+apiVersion: maistra.io/v1
+kind: ServiceMeshMemberRoll
+metadata:
+  name: default
+  namespace: userX-istio-system 
+spec:
+  members:
+    - userX-meshapp
+  ```
 
 ### Anwendung deployen
 
