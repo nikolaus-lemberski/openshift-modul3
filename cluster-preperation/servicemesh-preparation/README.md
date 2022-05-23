@@ -1,5 +1,8 @@
 # Service Mesh
 
+> **⚠ HINWEIS:**  
+> In RHPDS -> "CCN Roadshow for Dev Track OCP 4.9" ist Service Mesh bereits installiert. Es muss nur für jeden User in _USERNAME_istio_system_ eine ServiceMeshMemberRoll erstellt werden.
+
 ## Installation:  
 
 https://docs.openshift.com/container-platform/4.10/service_mesh/v2x/installing-ossm.html
