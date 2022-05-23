@@ -1,9 +1,14 @@
 FROM registry.redhat.io/openshift4/ose-cli
 
+ENV YQ_VERSION=v4.25.1
+
 USER root
 
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/odo/latest/odo-linux-amd64 -o /usr/local/bin/odo && chmod +x /usr/local/bin/odo
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/helm/latest/helm-linux-amd64 -o /usr/local/bin/helm && chmod +x /usr/local/bin/helm
 RUN curl -L https://mirror.openshift.com/pub/openshift-v4/clients/kam/latest/kam-linux-amd64 -o /usr/local/bin/kam && chmod +x /usr/local/bin/kam
+RUN curl -L https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64 -o /usr/local/bin/yq && chmod +x /usr/local/bin/yq
+RUN rpm -ivh https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+RUN dnf install -y git nano vim curl httpie jq && dnf -y clean all && rm -rf /var/cache
 
 ENTRYPOINT ["tail", "-f", "/dev/null"]
