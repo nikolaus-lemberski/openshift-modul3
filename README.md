@@ -75,7 +75,7 @@ Die Applikation:
 https://github.com/nikolaus-lemberski/openshift-modul3
 * dort im Unterordner (context directory) _projects/project-1_
 * erhält als Applikationsnamen "hello"
-* nutzt nodejs in der Version 16 mit dem ubi8 baseimage, als ImageStream _openshift/nodejs:14-ubi8-minimal_ in OpenShift bereitgestellt
+* nutzt nodejs in der Version 14 mit dem ubi8 baseimage, als ImageStream _openshift/nodejs:14-ubi8-minimal_ in OpenShift bereitgestellt
 Hinweis: es muss kein Dockerfile erstellt werden!
 * als build strategy soll _source_ verwendet werden
 
@@ -331,9 +331,19 @@ curl -H \
   "Accept: application/vnd.github.v4.raw" \
   -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/customer.yml" \
   | kubectl create -f -
-
-oc expose svc customer
 ```
+
+Anschließend erstellen wir ein virtuelles Gateway, über das wir das Projekt aufrufen können. Da wir ein Service Mesh verwenden, möchten wir den gesamten traffic durch das Service Mesh routen und verwenden daher nicht wie sonst eine _route_.
+
+```
+curl -H \
+  "Accept: application/vnd.github.v4.raw" \
+  -L "https://api.github.com/repos/nikolaus-lemberski/openshift-modul3/contents/projects/project-4/customer-gateway.yml" \
+  | kubectl create -f -
+```
+
+Nachdem das Gateway erstellt ist, können wir es von außen über _curl_ auf der Adresse des Service Mesh Gateway im Kontext-Pfad _/customer_ aufrufen:  
+`curl istio-ingressgateway-USERNAME-istio-system.apps.cluster-XYZ-SEE-YOUR-OPENSHIFT-ADDRESS.opentlc.com/customer`
 
 Interessant ist im Vergleich zu unseren vorherigen Projekten: In der READY Spalte von `oc get pods` stehen nun zwei (2/2) statt wie bisher eins (1/1). In jedem pod sind zwei container:
 
