@@ -19,6 +19,8 @@ Alles in den _openshift-operators_ namespace, nur ElasticSearch in den _openshif
 
 ## Control Plane
 
+Control Plane im Projekt "istio-system". Oder ein Control Plane für jeden User als userX-istio-system (ist in "CCN Roadshow for Dev Track OCP 4.9" bereits erstellt).
+
 https://docs.openshift.com/container-platform/4.10/service_mesh/v2x/ossm-create-smcp.html#ossm-create-smcp
 
 ### Kurzfassung:
