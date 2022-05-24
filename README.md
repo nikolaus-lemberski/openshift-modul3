@@ -360,7 +360,7 @@ Interessant ist im Vergleich zu unseren vorherigen Projekten: In der READY Spalt
 
 Möchte man mit `oc exec` auf einen Container zugreifen, spezifiziert man den gewünschten über das `-c` flag.
 
-Wir können nun mit curl den endpoint (_route_) aufrufen und bekommen folgenden response:
+Wir können nun mit curl den endpoint (sh. unser Service Mesh Gateway weiter oben) aufrufen und bekommen folgenden response:
 > customer => UnknownHostException: preference
 
 #### Preference
