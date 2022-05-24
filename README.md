@@ -405,10 +405,55 @@ Und nach nochmaligem Aufruf:
 
 Aufgabe ist nun, das Service Mesh zu konfigurieren:
 
-1. Die recommendation app liegt in zwei Versionen vor. Diese beiden Versionen sollen dem Service Mesh als _DestinationRule_ angegeben werden.  
+#### Destination Rule
+
+Die recommendation app liegt in zwei Versionen vor. Diese beiden Versionen sollen dem Service Mesh als _DestinationRule_ angegeben werden.  
 Docs: [DestinationRule](https://istio.io/latest/docs/reference/config/networking/destination-rule/)
-2. Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.  
+
+Dazu wenden wir folgendes yaml file an:
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: recommendation
+spec:
+  host: recommendation
+  subsets:
+  - labels:
+      version: v1
+    name: version-v1
+  - labels:
+      version: v2
+    name: version-v2
+```
+
+#### Virtual Service
+
+Als nächstes soll das Service Mesh angewiesen werden, Service-Calls auf den recommendation Service 50/50 zwischen v1 und v2 zu verteilen. Hierfür wird ein _VirtualService_ benötigt.  
 Docs: [VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
+
+Dazu wenden wir folgendes yaml file an:
+
+```yaml
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: recommendation
+spec:
+  hosts:
+  - recommendation
+  http:
+  - route:
+    - destination:
+        host: recommendation
+        subset: version-v1
+      weight: 50
+    - destination:
+        host: recommendation
+        subset: version-v2
+      weight: 50
+```
 
 Über curl kann nun das Ergebnis geprüft werden, ggf. auch zum Test die Last anders verteilt werden.
 
@@ -418,9 +463,10 @@ Anschließend überprüfen wir das Ergebnis durch mehrfachen Aufruf des customer
 
 Wir simulieren hier einen fehlerhaften Pod oder temporäre Netzwerk-Fehler. Das Service Mesh kann uns nun helfen, unsere Services mehr "resilient" gegen solche Fehler zu machen.
 
-Dazu soll das oben erstellte _VirtualService_ geändert werden, so dass bei Fehlern ein _retry_ ausgeführt wird.
+Dazu soll das oben erstellte _VirtualService_ geändert werden, so dass bei Fehlern ein _retry_ ausgeführt wird. Aufgabe ist es, über die Dokumentation selbst herauszufinden, wie ein _retry_ konfiguriert wird.
+[VirtualService](https://istio.io/latest/docs/reference/config/networking/virtual-service/)
 
-Ist alles korrekt konfiguriert, treten beim Aufruf des customer Service nun keine Fehler von recommendation-v2 mehr auf. Fehlerhafter response vom recommendation-v2 wird vom Service Mesh durch ein "retry" behoben.
+Ist alles korrekt konfiguriert, treten beim Aufruf des customer Service nun keine Fehler von recommendation-v2 mehr auf. Fehlerhafter response vom recommendation-v2 wird vom Service Mesh durch ein "retry" behoben. Wer möchte kann nun auch noch die pods skalieren und das Verhalten beobachten.
 
 ### Observability
 
