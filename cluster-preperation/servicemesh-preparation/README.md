@@ -1,7 +1,7 @@
 # Service Mesh
 
 > **⚠ HINWEIS:**  
-> In RHPDS -> "CCN Roadshow for Dev Track OCP 4.9" ist Service Mesh bereits installiert. Es muss nur für jeden User in _USERNAME_istio_system_ eine ServiceMeshMemberRoll erstellt werden.
+> In RHPDS -> "CCN Roadshow for Dev Track OCP 4.9" ist Service Mesh bereits installiert. Es muss nur für jeden User in _USERNAME_istio_system_ eine ServiceMeshMemberRoll erstellt werden. **Die User können das selbst erledigen**, Anleitung ist in der User-Anleitung enthalten!
 
 ## Installation:  
 
