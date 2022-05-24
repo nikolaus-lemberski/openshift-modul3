@@ -470,7 +470,7 @@ Ist alles korrekt konfiguriert, treten beim Aufruf des customer Service nun kein
 
 ### Observability
 
-Das genannte Verhalten schauen wir uns nun in Kiali und Jaeger an.
+Das genannte Verhalten schauen wir uns nun in Kiali und Jaeger an. Die Routes dazu finden wir in > Networking > Routes.
 
 ### Projekt löschen
 
