@@ -18,6 +18,8 @@ components:
     volumes:
       - name: workshop-preference
         containerPath: /home/jboss/config
+      - name: kube-cache
+        containerPath: /.kube
     alias: openshift-tools
     image: "quay.io/jjanz/workshop-tools:latest"
     env:
