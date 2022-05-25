@@ -64,7 +64,7 @@ Username und Adresse werden vom Trainer für jeden Teilnehmer zur Verfügung ges
 
 Alle Applikationen in OpenShift werden in Projekten organisiert. In einem Projekt können viele Applikationen enthalten sein, sie befinden sich im gleichen _namespace_ und können miteinander über Services kommunizieren.
 
-Als erstes erstellen wir ein Projekt **hello** über die OpenShift CLI. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **user123-hello**.
+Als erstes erstellen wir über die Web Konsole oder über die OpenShift CLI (mit `oc new-project userX-hello` - userX bitte entsprechend auf eigenen Usernamen anpassen) ein Projekt **hello**. Damit wir mit den Projektnamen nicht durcheinanderkommen, stellt jeder vor den Projektnamen seinen Usernamen, also z.B. **userX-hello**.
 
 ### Applikation bauen und deployen
 
@@ -77,6 +77,7 @@ https://github.com/nikolaus-lemberski/openshift-modul3
 * erhält als Applikationsnamen "hello"
 * nutzt nodejs in der Version 14 mit dem ubi8 baseimage, als ImageStream _openshift/nodejs:14-ubi8-minimal_ in OpenShift bereitgestellt
 Hinweis: es muss kein Dockerfile erstellt werden!
+* Tipp: der zu verwendende ImageStream _openshift/nodejs:14-ubi8-minimal_ wird einfach vor die Github Adresse des Projektes geschrieben, durch eine Tilde (~) getrennt).
 * als build strategy soll _source_ verwendet werden
 
 Über `oc get all` kann alles, was der `oc new-app` command erstellt hat, angesehen werden. Es werden zwei pods gebaut, erst ein "build" pods der die Anwendung baut, danach der pod mit der Anwendung.
@@ -106,7 +107,7 @@ Zuletzt erstellen wir eine _route_ für die app, um diese öffentlich aufrufbar 
 
 ### Projekt löschen
 
-Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder.
+Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder über die Web Konsole oder die OpenShift CLI mit `oc delete project userX-hello`.
 
 
 ## 2 - App Deployment mit Fehlersuche
@@ -116,7 +117,7 @@ Um Ressourcen für weitere Projekte freizugeben, löschen wir das Projekt wieder
 
 ## Projekt erstellen
 
-Wie gehabt erstellen wir wieder ein Projekt, diesmal mit dem Namen **nodeapp** und vorangestelltem Usernamen, also nach dem Schema  **user123-nodeapp**.
+Wie gehabt erstellen wir wieder ein Projekt (`oc new-project`), diesmal mit dem Namen **nodeapp** und vorangestelltem Usernamen, also nach dem Schema  **userX-nodeapp**.
 
 Zuerst speichern wir das folgende Deploymentfile als "Deployment.yml" im Ordner `modul3`:
 
