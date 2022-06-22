@@ -208,7 +208,7 @@ Und konfigurieren in _Chart.yaml_ die MariaDB als _dependency_. Dazu fügen wir 
 ```yaml
 dependencies:
 - name: mariadb
-  version: 9.3.11
+  version: 11.0.13
   repository: https://charts.bitnami.com/bitnami
 ```
 
